@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="hr">
+
+  <head>
+  <!-- COMMON TAGS -->
+    <meta charset="utf-8">
+    <title>may the force be with you</title>
+  	<link rel="stylesheet" href="stil.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+
+<body>
+
+
+
+    <br />
+
+<div id="game">
+
+  <canvas id="myCanvas" width="480" height="320" ></canvas>
+
+</div>
+
+<p> Use mouse or [&#x2039;] & [&#x203A;] to move the paddle </p>
+
+<br />
+<br />
+<br />
+
+<p><a href="../index.html">&#x2039;&#x2039;RETURN TO BASE</a></p>
+
+
+  <script>
+
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+      var ballRadius = 10;
+      var x = canvas.width/2;
+      var y = canvas.height-30;
+      var dx = 2;
+      var dy = -2;
+      var paddleHeight = 10;
+      var paddleWidth = 75;
+      var paddleX = (canvas.width-paddleWidth)/2;
+      var rightPressed = false;
+      var leftPressed = false;
+      var brickRowCount = 5;
+      var brickColumnCount = 7;
+      var brickWidth = 75;
+      var brickHeight = 15;
+      var brickPadding = 10;
+      var brickOffsetTop = 30;
+      var brickOffsetLeft = 30;
+      var score = 0;
+      var lives = 3;
+      var bricks = [];
+      for(c=0; c<brickColumnCount; c++) {
+          bricks[c] = [];
+          for(r=0; r<brickRowCount; r++) {
+              bricks[c][r] = { x: 0, y: 0, status: 1 };
+          }
+      }
+      document.addEventListener("keydown", keyDownHandler, false);
+      document.addEventListener("keyup", keyUpHandler, false);
+      document.addEventListener("mousemove", mouseMoveHandler, false);
+      function keyDownHandler(e) {
+          if(e.keyCode == 39) {
+              rightPressed = true;
+          }
+          else if(e.keyCode == 37) {
+              leftPressed = true;
+          }
+      }
+      function keyUpHandler(e) {
+          if(e.keyCode == 39) {
+              rightPressed = false;
+          }
+          else if(e.keyCode == 37) {
+              leftPressed = false;
+          }
+      }
+      function mouseMoveHandler(e) {
+          var relativeX = e.clientX - canvas.offsetLeft;
+          if(relativeX > 0 && relativeX < canvas.width) {
+              paddleX = relativeX - paddleWidth/2;
+          }
+      }
+      function collisionDetection() {
+          for(c=0; c<brickColumnCount; c++) {
+              for(r=0; r<brickRowCount; r++) {
+                  var b = bricks[c][r];
+                  if(b.status == 1) {
+                      if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                          dy = -dy;
+                          b.status = 0;
+                          score++;
+                          if(score == brickRowCount*brickColumnCount) {
+                              alert("THE GALAXY IS SAVED!");
+                              document.location.reload();
+
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      function drawBall() {
+          ctx.beginPath();
+          ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+          ctx.fillStyle = "#FFE231";
+          ctx.fill();
+          ctx.closePath();
+      }
+      function drawPaddle() {
+          ctx.beginPath();
+          ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+          ctx.fillStyle = "#7F7F76";
+          ctx.fill();
+          ctx.closePath();
+      }
+      function drawBricks() {
+          for(c=0; c<brickColumnCount; c++) {
+              for(r=0; r<brickRowCount; r++) {
+                  if(bricks[c][r].status == 1) {
+                      var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+                      var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+                      bricks[c][r].x = brickX;
+                      bricks[c][r].y = brickY;
+                      ctx.beginPath();
+                      ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                      ctx.fillStyle = "#fff";
+                      ctx.fill();
+                      ctx.closePath();
+
+                  }
+              }
+          }
+      }
+      function drawScore() {
+          ctx.font = "16px Julius Sans One";
+          ctx.fillStyle = "#fff";
+          ctx.fillText("SCORE: "+score, 8, 20);
+      }
+      function drawLives() {
+          ctx.font = "16px Julius Sans One";
+          ctx.fillStyle = "#fff";
+          ctx.fillText("LIVES: "+lives, canvas.width-65, 20);
+      }
+      function draw() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawBricks();
+          drawBall();
+          drawPaddle();
+          drawScore();
+          drawLives();
+          collisionDetection();
+          if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+              dx = -dx;
+          }
+          if(y + dy < ballRadius) {
+              dy = -dy;
+          }
+          else if(y + dy > canvas.height-ballRadius) {
+              if(x > paddleX && x < paddleX + paddleWidth) {
+                  dy = -dy;
+              }
+              else {
+                  lives--;
+                  if(!lives) {
+                      alert("GAME OVER! TRY AGAIN.");
+                      document.location.reload();
+                  }
+                  else {
+                      x = canvas.width/2;
+                      y = canvas.height-30;
+                      dx = 3;
+                      dy = -3;
+                      paddleX = (canvas.width-paddleWidth)/2;
+                  }
+              }
+          }
+          if(rightPressed && paddleX < canvas.width-paddleWidth) {
+              paddleX += 7;
+          }
+          else if(leftPressed && paddleX > 0) {
+              paddleX -= 7;
+          }
+          x += dx;
+          y += dy;
+          requestAnimationFrame(draw);
+      }
+      draw();
+
+
+  </script>
+
+  </body>
+  </html>

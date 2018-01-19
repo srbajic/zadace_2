@@ -1,0 +1,35 @@
+body, html {
+  background-color: black;
+}
+
+
+
+p {color: white;
+font-family: 'Julius Sans One';
+font-size: 12px;
+letter-spacing: 0.25em;
+margin-top: -250px;
+float: right;
+margin-right: 150px;
+}
+
+
+img {
+    float: right;
+    display: inline block;
+    margin-right: 250px;
+    width: 350px;
+    margin-top: -200px;
+  }
+
+  #myCanvas {
+    margin-top: 10%;
+    margin-left: 10%;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  

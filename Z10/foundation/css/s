@@ -1,0 +1,48 @@
+body {
+  background-color: #fff;
+}
+h1 {
+   font-family:'Reenie Beanie';
+   color: #20a28a;
+   font-size: 50px;
+}
+
+a{
+	font-size:8pt;
+	letter-spacing:1px;
+	color: black;
+	font-family: 'Josefin Sans';
+  font-weight: 900;
+  margin-top: 80px;
+}
+
+ul {
+  float: right;
+  margin-right: 150px;
+}
+
+.top-bar {
+  background-color: #fff;
+}
+
+p {
+  font-family: 'Josefin Sans';
+}
+
+.podnasl {
+  color: #20a28a;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  font-weight: bold;
+}
+
+.footer {
+  height: 350px;
+  width: 1200px;
+  background: #14988b;
+  margin: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+}

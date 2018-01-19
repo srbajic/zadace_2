@@ -1,0 +1,82 @@
+
+
+
+body {
+  background-color: #fff;
+  margin: 0 auto;
+  overflow-y: scroll;
+overflow-x: hidden;
+}
+h1 {
+   font-family:'Reenie Beanie';
+   color: #20a28a;
+   font-size: 50px;
+}
+
+a{
+	font-size:8pt;
+	letter-spacing:1px;
+	color: black;
+	font-family: 'Josefin Sans';
+  font-weight: 900;
+  margin-top: 80px;
+}
+
+ul {
+  float: right;
+  margin-right: 150px;
+}
+
+.top-bar {
+  background-color: #fff;
+}
+
+p {
+  font-family: 'Josefin Sans';
+}
+
+.podnasl {
+  color: #20a28a;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  font-weight: bold;
+}
+
+#footer {
+  height: 450px;
+  position:fixed;
+
+
+
+}
+
+.end{
+	background-color: #14988b;;
+	padding-top: 50px;
+	padding-left: 250px;
+	padding-right: 250px;
+	padding-right: 250px;
+  z-index:100000;
+  width: 100%;
+}
+
+.first {
+  font-family: 'Josefin Sans';
+  color: white;
+
+}
+
+.sec {
+  margin-left: 250px;
+  font-family: 'Josefin Sans';
+  color: white;
+  margin-top: -170px;
+}
+
+.third {
+  font-family: 'Josefin Sans';
+  color: white;
+  float: right;
+  margin-left: 350px;
+  margin-top: -20%;
+}
